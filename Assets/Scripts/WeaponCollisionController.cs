@@ -5,6 +5,7 @@ public class WeaponHitbox : MonoBehaviour
 {
     [SerializeField] private Collider weaponCollider; 
     [SerializeField] private Animator animator;
+    [SerializeField] private LinkSound linkSound;
     [SerializeField] private int damage = 10;
     private bool isAttacking = false;
     private bool hasHitThisAttack = false;
@@ -16,6 +17,7 @@ public class WeaponHitbox : MonoBehaviour
         Debug.Log("Collider is true");
         weaponCollider.enabled = true; 
         animator = GetComponentInParent<Animator>();
+        linkSound = GetComponentInParent<LinkSound>();
     }
 
     private void Update()
@@ -46,6 +48,7 @@ public class WeaponHitbox : MonoBehaviour
         EnemyHealthScript enemyHealth = other.GetComponent<EnemyHealthScript>();
         if (enemyHealth != null)
         {
+            linkSound.SwordHitSound();
             Debug.Log("Enemy Took Damage ?");
             enemyHealth.TakeDamage(damage);
         }
