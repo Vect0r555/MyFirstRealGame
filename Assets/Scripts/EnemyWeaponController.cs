@@ -39,7 +39,7 @@ public class EnemyWeaponController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(hasHitThisAttack);
+        //Debug.Log(hasHitThisAttack);
         if (!enemyController.isAttacking||hasHitThisAttack) return;
         LinkHealth linkHealth = other.GetComponent<LinkHealth>();
         if (linkHealth != null) 

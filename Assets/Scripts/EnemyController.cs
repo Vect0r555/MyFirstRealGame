@@ -13,8 +13,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float lookRadius = 10f;
     public bool isAttacking { get; private set; }
 
-    [SerializeField] private float knockBackForce = 3f;
-    [SerializeField] private float knockBackTime = 0.2f;
+    //[SerializeField] private float knockBackForce = 3f;
+    //[SerializeField] private float knockBackTime = 0.2f;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
