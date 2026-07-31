@@ -4,6 +4,7 @@ public class LinkController : MonoBehaviour
 {
     
     [SerializeField]private CharacterController controller;
+    [SerializeField] private LinkSound linkSound;
     public Transform cam;
     [SerializeField]private float speed = 1f;
     public float turnSmoothTime = 0.1f;
@@ -32,6 +33,7 @@ public class LinkController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        linkSound = GetComponent<LinkSound>();
     }
 
     // Update is called once per frame
@@ -57,6 +59,7 @@ public class LinkController : MonoBehaviour
         if (isGrounded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            linkSound.jumping = true;
         }
     }
     private void HandleMovement()

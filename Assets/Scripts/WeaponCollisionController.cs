@@ -8,9 +8,9 @@ public class WeaponHitbox : MonoBehaviour
     [SerializeField] private LinkSound linkSound;
     [SerializeField] private int damage = 10;
     private bool isAttacking = false;
-    private bool hasHitThisAttack = false;
-    private bool sameAttack = true;
-    private int lastAttackStateHash = 0;
+    //private bool hasHitThisAttack = false;
+    //private bool sameAttack = true;
+    //private int lastAttackStateHash = 0;
 
     private void Start()
     {
@@ -20,20 +20,7 @@ public class WeaponHitbox : MonoBehaviour
         linkSound = GetComponentInParent<LinkSound>();
     }
 
-    private void Update()
-    {
-        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (!state.IsTag("Attack"))
-        {
-            hasHitThisAttack = false; // вышли из атаки полностью — можно бить заново
-        }
-    }
-    private void Disable()
-    {
-        weaponCollider.enabled = false;
-        hasHitThisAttack = false;
-    }
 
 
     public void SetAttacking(bool value)
@@ -42,8 +29,7 @@ public class WeaponHitbox : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log( hasHitThisAttack);
-        if (!isAttacking||hasHitThisAttack) return;
+        if (!isAttacking) return;
         Debug.Log("Triggered");
         EnemyHealthScript enemyHealth = other.GetComponent<EnemyHealthScript>();
         if (enemyHealth != null)
