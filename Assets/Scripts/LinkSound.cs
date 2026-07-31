@@ -3,9 +3,9 @@ using UnityEngine;
 public class LinkSound : MonoBehaviour
 {
     [SerializeField]AudioSource swordAudioSource;
-    [SerializeField]AudioSource linkAudioSource; 
+    [SerializeField]AudioSource linkAudioSource;
+    [SerializeField] private AudioSource jumpAudioSource;
     [SerializeField]private Animator animator;
-    [SerializeField] private AudioClip jumpClip;
     public bool jumping=false;
     void Start()
     {
@@ -23,9 +23,9 @@ public class LinkSound : MonoBehaviour
             linkAudioSource.Play();
         }
     }
-    private void JumpSound()
+    public void JumpSound()
     {
-        linkAudioSource.PlayOneShot(jumpClip);
+        jumpAudioSource.Play();
         jumping = false;
     }
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class LinkSound : MonoBehaviour
         {
             FootSteps();
         }
-        if (jumping)
+        else if (jumping)
         {
             JumpSound();
         }

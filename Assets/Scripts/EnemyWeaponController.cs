@@ -6,6 +6,7 @@ public class EnemyWeaponController : MonoBehaviour
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private Collider weaponCollider;
     [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private EnemySound enemySound;
 
     private bool hasHitThisAttack = false;
     void Start()
@@ -46,6 +47,7 @@ public class EnemyWeaponController : MonoBehaviour
         {
             Debug.Log("Triggered");
            linkHealth.TakeDamage(damage);
+            enemySound.SwordHitSound();
             hasHitThisAttack = true;
             
         }

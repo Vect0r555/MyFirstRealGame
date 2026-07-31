@@ -33,7 +33,6 @@ public class LinkController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        linkSound = GetComponent<LinkSound>();
     }
 
     // Update is called once per frame
@@ -59,7 +58,7 @@ public class LinkController : MonoBehaviour
         if (isGrounded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            linkSound.jumping = true;
+            linkSound.JumpSound();
         }
     }
     private void HandleMovement()
