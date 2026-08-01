@@ -38,6 +38,7 @@ public class LinkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Gravity();
         HandleJump();
         HandleMovement();
@@ -63,7 +64,7 @@ public class LinkController : MonoBehaviour
     }
     private void HandleMovement()
     {
-       
+      
         Vector2 input = new Vector2();
         if (Keyboard.current != null)
         {   
@@ -71,6 +72,8 @@ public class LinkController : MonoBehaviour
             if (Keyboard.current.sKey.isPressed) input.y -= 1f;
             if (Keyboard.current.dKey.isPressed) input.x += 1f;
             if (Keyboard.current.aKey.isPressed) input.x -= 1f;
+            if (Keyboard.current.shiftKey.isPressed) speed = 10f;
+            else speed = 6f;
         }
         Vector3 direction = new Vector3(input.x, 0f, input.y).normalized;
         if (direction.magnitude >= 0.1f)
