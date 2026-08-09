@@ -6,13 +6,18 @@ public class EnemyController : MonoBehaviour
 {
     private EnemyAnimController enemyAnimController;
     Transform target;
+    //[SerializeField] Transform projectileSpawnPoint;
+    //[SerializeField] GameObject projectilePref;
     NavMeshAgent agent;
     Rigidbody rb;
     public float agentMagnitude;
     [SerializeField] private float attackDistance;
+    //[SerializeField] private float throwProjectileDistance =8f;
     [SerializeField] private float lookRadius = 10f;
-    [SerializeField]private float rotationSpeed = 1.0f;
+    [SerializeField] private float rotationSpeed = 1.0f;
+    //private float throwCooldown = 2f;
     public bool isAttacking { get; private set; }
+    //public bool isThrowing { get; private set; } 
 
     //[SerializeField] private float knockBackForce = 3f;
     //[SerializeField] private float knockBackTime = 0.2f;
@@ -52,12 +57,22 @@ public class EnemyController : MonoBehaviour
         }
         else if (distance <= lookRadius) 
         {
+            /*if (distance <= throwProjectileDistance&&last)
+            {
+                isThrowing = true;
+                agent.SetDestination(transform.position);
+            }*/
             isAttacking = false;
             agent.SetDestination(target.position);
         }
         RotateTowardsTarget();
         
     }
+    /*public void ThrowProjectile()
+    {
+        Vector3 direction = (target.position - projectileSpawnPoint.position).normalized;
+        GameObject projectile = Instantiate(projectilePref, projectileSpawnPoint.position, Quaternion.LookRotation(direction));
+    }*/
     private void RotateTowardsTarget()
     {
         Vector3 direction = (target.position - transform.position);
@@ -73,6 +88,10 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
         Gizmos.color = Color.yellow;
+        
         Gizmos.DrawWireSphere(transform.position, attackDistance);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawWireSphere(transform.position, throwProjectileDistance);
+        
     }
 }

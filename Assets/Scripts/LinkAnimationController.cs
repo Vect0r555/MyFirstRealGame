@@ -18,20 +18,20 @@ public class LinkAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Attack();
-        Moving();
-        Jump();
-        UpdateWeaponHitBox();
-    }
-    private void UpdateWeaponHitBox()
-    {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        Attack();
+        Moving(state);
+        Jump();
+        UpdateWeaponHitBox(state);
+    }
+    private void UpdateWeaponHitBox(AnimatorStateInfo state)
+    {
         weaponHitbox.SetAttacking(state.IsTag("isAttacking"));
     }
-    private void Moving()
+    private void Moving(AnimatorStateInfo state)
     {
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.aKey.isPressed ||
-    Keyboard.current.sKey.isPressed || Keyboard.current.dKey.isPressed)
+        if ((Keyboard.current.wKey.isPressed || Keyboard.current.aKey.isPressed ||
+    Keyboard.current.sKey.isPressed || Keyboard.current.dKey.isPressed)&& !state.IsTag("Jump"))
         {
             animator.SetBool("Moving", true);
         }
@@ -46,6 +46,10 @@ public class LinkAnimationController : MonoBehaviour
         {
             animator.SetTrigger("Jump");
             Debug.Log("JumpSet");
+        }
+        else if (controller.IsGrounded)
+        {
+            animator.SetBool("IsGrounded", true);
         }
     }
     private void Attack()

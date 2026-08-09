@@ -24,11 +24,16 @@ public class EnemyWeaponController : MonoBehaviour
             Enable();
            
         }
+        /*else if (enemyController.isThrowing && state.IsTag("Throwing"))
+        {
+            
+        }*/
         else
         {
             Disable();
         }
     }
+
     public void Enable()
     {
         weaponCollider.enabled = true;

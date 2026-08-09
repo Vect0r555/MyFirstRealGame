@@ -12,8 +12,7 @@ public class LinkSound : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     public void SwordHitSound()
-    {
-            swordAudioSource.Play();
+    { swordAudioSource.Play();
         
     }
     private void FootSteps()

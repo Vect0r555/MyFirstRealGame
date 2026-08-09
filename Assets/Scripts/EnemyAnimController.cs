@@ -26,8 +26,14 @@ public class EnemyAnimController : MonoBehaviour
             {
                 animator.SetTrigger("Attack");
             }
+            //else if (enemyController.isThrowing) animator.SetTrigger("Throw"); 
+
             
         }
+    }
+    public void DieAnim()
+    {
+        animator.SetTrigger("Die");
     }
     public void TakeDamageAnim()
     {
