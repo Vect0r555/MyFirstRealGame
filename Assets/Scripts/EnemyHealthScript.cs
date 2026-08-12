@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnemyHealthScript : MonoBehaviour
 {
-    //private EnemyController enemyController;
+    private EnemyController enemyController;
     [SerializeField] private Image healthBar;
     [SerializeField] private EnemyAnimController enemyAnimController;
     [SerializeField] private ParticleSystem particleSystem;
@@ -18,7 +18,7 @@ public class EnemyHealthScript : MonoBehaviour
         currentHealth = health;
         enemyAnimController = GetComponentInChildren<EnemyAnimController>();
         if (enemyAnimController == null) Debug.LogError("EnemyAnimController not found on " + gameObject.name);
-        //enemyController = GetComponent<EnemyController>();
+        enemyController = GetComponent<EnemyController>();
         
     }
     private void UpdateHealthBar(float currentHealth)
@@ -58,12 +58,13 @@ public class EnemyHealthScript : MonoBehaviour
     }
     private void Die()
     {
+
+        enemyController.LockIn(true);
         StartCoroutine(DeathRoutine());
     }
     private IEnumerator DeathRoutine()
     {
         enemyAnimController.DieAnim();
-        
         yield return new WaitForSeconds(deathDuration);
         Destroy(gameObject);
     }

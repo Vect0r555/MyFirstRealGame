@@ -3,8 +3,6 @@ using TMPro;
 public class Billboard : MonoBehaviour
 {
     [SerializeField]private Transform mainCameraTransform;
-    [SerializeField]
-    private TextMeshProUGUI nocQuestText;
     void Start()
     {
         // Находим главную камеру при старте

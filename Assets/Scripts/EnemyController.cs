@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1.0f;
     //private float throwCooldown = 2f;
     public bool isAttacking { get; private set; }
+    public bool isLockedIn;
     //public bool isThrowing { get; private set; } 
 
     //[SerializeField] private float knockBackForce = 3f;
@@ -50,12 +51,12 @@ public class EnemyController : MonoBehaviour
     {
         agentMagnitude = agent.velocity.magnitude; 
         float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= attackDistance)
+        if (distance <= attackDistance&&!isLockedIn)
         {
             agent.SetDestination(transform.position);
             isAttacking = true;
         }
-        else if (distance <= lookRadius) 
+        else if (distance <= lookRadius&&!isLockedIn) 
         {
             /*if (distance <= throwProjectileDistance&&last)
             {
@@ -65,8 +66,13 @@ public class EnemyController : MonoBehaviour
             isAttacking = false;
             agent.SetDestination(target.position);
         }
-        RotateTowardsTarget();
+        if(!isLockedIn)RotateTowardsTarget();
         
+    }
+    public void LockIn(bool state)
+    {
+        isLockedIn = state;
+        if (isLockedIn) agent.isStopped = true;
     }
     /*public void ThrowProjectile()
     {
