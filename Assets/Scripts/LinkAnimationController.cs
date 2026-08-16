@@ -5,8 +5,7 @@ public class LinkAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private LinkController controller;
-    [SerializeField] private WeaponHitbox weaponHitbox; 
-
+    [SerializeField] private WeaponHitbox weaponHitbox;
 
     private float lastAttackTime;
 
@@ -51,6 +50,10 @@ public class LinkAnimationController : MonoBehaviour
         {
             animator.SetBool("IsGrounded", true);
         }
+    }
+    public void Die()
+    {
+        animator.SetTrigger("Die");
     }
     private void Attack()
     {

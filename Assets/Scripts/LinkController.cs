@@ -21,6 +21,8 @@ public class LinkController : MonoBehaviour
 
     [SerializeField] private float jumpHeight = 3f; 
     public static LinkController Instance { get; private set; }
+    public bool isDead=false;
+
     private void Awake()
     {
         if(Instance!= null && Instance != this)
@@ -38,10 +40,17 @@ public class LinkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log("Character isDEad: " + isDead); 
         Gravity();
-        HandleJump();
-        HandleMovement();
+        if (!isDead)
+        {
+            HandleJump();
+            HandleMovement();
+        }
+        else {
+            velocity.x = 0;
+            velocity.z = 0;
+        }
         
     }
     private void Gravity()
@@ -85,6 +94,12 @@ public class LinkController : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
+    }
+    public void Die()
+    {
+        isDead = true;
+        controller.enabled = false;
+        Debug.Log("IsDead = true");
     }
     
 }

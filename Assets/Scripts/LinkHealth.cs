@@ -1,8 +1,14 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+using System.Collections;
 public class LinkHealth : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
+    [SerializeField] private GameObject link;
+    [SerializeField] private Image healthImage;
+    [SerializeField]private LinkController linkController;
+    [SerializeField]private CanvasControl canvasController;
+    [SerializeField]private LinkAnimationController linkAnimController;
+    [SerializeField] private int health=100;
     private int currentHealth;
     void Start()
     {
@@ -12,12 +18,23 @@ public class LinkHealth : MonoBehaviour
     {
 
         currentHealth -= damage;
+        UpdateHealthBar(currentHealth);
         Debug.Log(currentHealth);
         if (currentHealth <= 0) Die();
+    }
+    private void UpdateHealthBar(float currentHealth)
+    {
+        healthImage.fillAmount = currentHealth / health;
+        Debug.Log(healthImage);
     }
     // Update is called once per frame
     private void Die()
     {
      Debug.Log("You Died");
+        linkAnimController.Die();
+        linkController.Die();
+        canvasController.Die();
+        
     }
+    
 }
