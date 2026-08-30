@@ -11,7 +11,6 @@ public class EnemyWeaponController : MonoBehaviour
     private bool hasHitThisAttack = false;
     void Start()
     {
-        enemyController = GetComponent<EnemyController>();
         weaponCollider.enabled = false;
     }
 

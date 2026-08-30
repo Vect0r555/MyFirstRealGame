@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class EnemyHealthScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyHealthScript : MonoBehaviour
     [SerializeField] private EnemyAnimController enemyAnimController;
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private PrefabAssetType prefabAssetType;
     [SerializeField] private float health = 300;
     [SerializeField] private float deathDuration = 2f;
     private float currentHealth;
@@ -63,6 +65,7 @@ public class EnemyHealthScript : MonoBehaviour
         enemyAnimController.DieAnim();
         
         yield return new WaitForSeconds(deathDuration);
+
         Destroy(gameObject);
     }
 }

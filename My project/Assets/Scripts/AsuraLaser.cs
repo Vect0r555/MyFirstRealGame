@@ -20,6 +20,7 @@ public class AsuraLaser : MonoBehaviour
     [SerializeField]private float currentLaserDuration = 0f;
     private bool laserActive = true;
     private bool blocked = false;
+    private bool isCharged= false;
     private readonly List<EnemyHealthScript> enemiesInLaser = new List<EnemyHealthScript>();
     void Start()
     {
@@ -58,6 +59,7 @@ public class AsuraLaser : MonoBehaviour
             //Debug.Log(timer);
             if (timer <= 2f)
             {
+                currentLaserDuration = LaserDuration;
                 if (!chargingPart.isPlaying) chargingPart.Play();
             }
             // Если прошло 2 секунды и лазер еще не горит — включаем лазер
@@ -122,6 +124,10 @@ public class AsuraLaser : MonoBehaviour
         if (chargingPart.isPlaying) chargingPart.Stop();
         if (laserCollider != null) laserCollider.enabled = false;
         if (linkSound != null) linkSound.StopLaserSound();
+    }
+    public void ChargeLaser()
+    {
+        isCharged = false;
     }
     private void OnTriggerEnter(Collider other)
     {
