@@ -9,6 +9,13 @@ public class ObjectPooler : MonoBehaviour
         public GameObject prefab;
         public int size;
     }
+    #region Singleton
+    public static ObjectPooler Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    #endregion
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     void Start()
@@ -25,9 +32,28 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    
+  public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
+        if (!poolDictionary.ContainsKey(tag)) 
+        {
+            Debug.Log("poolDictionary does not contain this tag: " + tag);
+            return null;
+        }
         
+            GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+            objectToSpawn.SetActive(true);
+            objectToSpawn.transform.position = position;
+            objectToSpawn.transform.rotation = rotation;
+            poolDictionary[tag].Enqueue(objectToSpawn);
+        return objectToSpawn;
+    }
+    public void ReturnToQueue(string tag, GameObject objectToReturn)
+    {
+        objectToReturn.SetActive(false);
+        if(poolDictionary.ContainsKey(tag))
+        {
+            poolDictionary[tag].Enqueue(objectToReturn);
+        }
     }
 }
