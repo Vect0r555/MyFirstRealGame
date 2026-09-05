@@ -10,7 +10,10 @@ public class EnemyController : MonoBehaviour
     //[SerializeField] GameObject projectilePref;
     NavMeshAgent agent;
     Rigidbody rb;
-    public Transform[] waysToGo;
+    [SerializeField] private Transform[] waypoints;
+    private float remainingDistance = 0.5f;
+    private int currentWaypointIndex = 0;
+    private float standingStillTime = 4f; 
     private Vector3 direction = new Vector3(-1,0,0);
     private float force = 0.5f;
     public float agentMagnitude;
@@ -57,6 +60,7 @@ public class EnemyController : MonoBehaviour
         if (distance <= attackDistance)
         {
             agent.SetDestination(transform.position);
+            RotateTowardsTarget();
             isAttacking = true;
         }
         else if (distance <= lookRadius) 
@@ -68,9 +72,39 @@ public class EnemyController : MonoBehaviour
             }*/
             isAttacking = false;
             agent.SetDestination(target.position);
+            RotateTowardsTarget();
+            agent.speed = 3.5f;
         }
-        RotateTowardsTarget();
+        else
+        {
+            if (!agent.pathPending && agent.remainingDistance <= remainingDistance)
+            {
+                //agent.SetDestination(transform.position);
+                standingStillTime-= Time.deltaTime;
+                if(standingStillTime <= 0)
+                {
+                    PatrolTargetChange();
+                    agent.speed = 1.5f;
+                }
+            }
+            Vector3 direction = waypoints[currentWaypointIndex].position -transform.position;
+            direction.y = 0;
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+            agent.SetDestination(waypoints[currentWaypointIndex].position);
+
+        }
+
+       
         
+    }
+    private void PatrolTargetChange()
+    {
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        standingStillTime = 4f;
     }
     public void KnockBack()
     {

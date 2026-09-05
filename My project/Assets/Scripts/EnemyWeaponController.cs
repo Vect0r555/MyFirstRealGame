@@ -8,6 +8,7 @@ public class EnemyWeaponController : MonoBehaviour
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private EnemySound enemySound;
 
+
     private bool hasHitThisAttack = false;
     void Start()
     {
@@ -42,6 +43,7 @@ public class EnemyWeaponController : MonoBehaviour
         weaponCollider.enabled = false;
         hasHitThisAttack = false;
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(hasHitThisAttack);
